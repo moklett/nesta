@@ -24,9 +24,18 @@ module Nesta
           html_class = current_item?(item) ? "current" : nil
           haml_tag :li, :class => html_class do
             haml_tag :a, :<, :href => url(item.abspath) do
-              haml_concat item.heading
+              haml_concat menu_label(item, options)
             end
           end
+        end
+      end
+
+      def menu_label(page, options = {})
+        label_field = options[:label_field]
+        if label_field && page.metadata(label_field.to_s)
+          page.metadata(label_field.to_s)
+        else
+          breadcrumb_label(page)
         end
       end
 
