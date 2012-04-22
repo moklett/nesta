@@ -17,7 +17,8 @@ module Nesta
         if item.respond_to?(:each)
           if (options[:levels] - 1) > 0
             haml_tag :li do
-              display_menu(item, :levels => (options[:levels] - 1))
+              submenu_options = options.merge(:levels => options[:levels] - 1)
+              display_menu(item, submenu_options)
             end
           end
         else
